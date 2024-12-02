@@ -7,7 +7,8 @@
 		"build": "vite build",
 		"preview": "vite preview",
 		"format": "prettier --write .",
-		"lint": "prettier --check . && eslint ."
+		"lint": "prettier --check . && eslint .",
+		"share": "HOST=0.0.0.0 PORT=3333 vite dev"
 	},
 	"devDependencies": {
 		"@eslint/compat": "^1.2.3",

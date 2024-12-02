@@ -1,137 +1,145 @@
 <script>
-	import { register, types, content } from 'helpers-plugin';
-	register({ identifierName: 'id' });
+  import { onMount } from 'svelte'
+  import { register, types, content } from 'helpers-plugin'
 
-	const items = [
-		{ id: 1, name: 'Apple' },
-		{ id: 2, name: 'Banana' },
-		{ id: 3, name: 'Orange' }
-	];
+  register({ identifierName: 'id' })
 
-	let contentValue = items;
-	let inputValue = 'items';
+  const items = [
+    { id: 1, name: 'Apple' },
+    { id: 2, name: 'Banana' },
+    { id: 3, name: 'Orange' }
+  ]
 
-	const changeInput = (input) => {
-		console.log(input.target.value);
-		try {
-			const value = eval(input.target.value);
-			contentValue = value;
-		} catch (e) {
-			console.log(e, 'e?');
-		}
-	};
+  let inputElement
+  let contentValue = items
+  let inputValue = 'items'
 
-	let inputElement;
+  // function validateInput() {
+  //   const words = [
+  //     'items.first()',
+  //     'items.last()',
+  //     'items.findById(0)',
+  //     'items.findById(1)',
+  //     'items.findById(2)',
+  //     'items.findById(3)',
+  //     'types.isNumber()',
+  //   ]
+  //   return words.includes(inputValue)
+  // }
 
-	function handleBlur() {
-		inputElement.focus(); // Refocus the input when it loses focus
-	}
+  function changeInput(input) {
+    try {
+      const value = eval(input.target.value)
+      contentValue = value
+    } catch (e) {
+      console.log(e, 'e?')
+    }
+  }
+
+  function handleBlur(refresh = false) {
+    const oldValue = inputValue
+    inputElement.focus()
+
+    if (refresh) {
+      inputValue = ''
+
+      setTimeout(() => {
+        inputValue = oldValue
+      }, 10)
+    }
+  }
+
+  onMount(() => {
+    handleBlur(true)
+  })
 </script>
 
-<div class="container" on:click={handleBlur}>
-	<div class="content">
-		<h1>helpers plugin</h1>
-		<h2>try and install using <span>npm i helpers-plugin</span></h2>
-		<div class="code">
-			<div class="input">
-				<span class="bomb">🔥</span><input
-					bind:this={inputElement}
-					autoFocus={true}
-					on:blur={handleBlur}
-					bind:value={inputValue}
-					on:input={(value) => changeInput(value)}
-				/>
-			</div>
-			<pre>{JSON.stringify(contentValue, null, 4)}</pre>
-		</div>
-	</div>
-</div>
+<button class="container" on:click={() => handleBlur()}>
+  <div class="content">
+    <h1>helpers plugin</h1>
+    <h2>try and install using <span>npm i helpers-plugin</span></h2>
+    <div class="code">
+      <div class="input">
+        <span class="bomb">🔥</span>
+        <input
+          bind:this={inputElement}
+          on:blur={() => handleBlur()}
+          bind:value={inputValue}
+          on:input={(value) => changeInput(value)}
+        />
+      </div>
+      <pre>{JSON.stringify(contentValue, null, 4)}</pre>
+    </div>
+  </div>
+</button>
 
 <style>
-	@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Rowdies:wght@300;400;700&family=Rubik+Mono+One&family=Saira:ital,wght@0,100..900;1,100..900&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Rowdies:wght@300;400;700&family=Rubik+Mono+One&family=Saira:ital,wght@0,100..900;1,100..900&display=swap');
 
-	:global(*) {
-		font-family: 'Poppins', sans-serif;
-	}
+  :global(*) {
+    font-family: 'Poppins', sans-serif;
+  }
 
-	h1 {
-		color: #00dc82;
-		font-weight: 300;
-		margin-top: 40px;
-		margin-bottom: 20px;
-		font-size: 48px;
-	}
+  .container {
+    min-height: 100vh;
+    background: linear-gradient(#080e20, #03050c);
+    color: white !important;
+    border: none;
+    text-align: left;
+    padding: 20px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 
-	h2 {
-		color: white;
-		font-weight: 300;
-		margin-bottom: 40px;
-		font-size: 18px;
-	}
+  .content {
+    max-width: 500px;
+    width: 100%;
+  }
 
-	h2 span {
-		color: #00dc82;
-	}
+  h1 {
+    color: #00dc82;
+    font-weight: 300;
+    margin-top: 40px;
+    margin-bottom: 20px;
+    font-size: 48px;
+  }
 
-	.container {
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		color: white !important;
-		background: linear-gradient(#080e20, #03050c);
-		min-height: 100vh;
-		/* padding-top: 40px;
-		padding-bottom: 40px; */
-	}
+  h2 {
+    color: white;
+    font-weight: 300;
+    margin-bottom: 40px;
+    font-size: 18px;
+  }
 
-	.content {
-		width: 500px;
-	}
+  h2 span {
+    color: #00dc82;
+  }
 
-	.code {
-		padding: 40px 40px;
-		border-radius: 8px;
-		font-size: 18px;
+  .code {
+    border-radius: 8px;
+    font-size: 18px;
+    background: linear-gradient(#202b47, #151d31);
+    /* width: 250px; */
+    display: block;
+    padding: 40px;
+  }
 
-		background: linear-gradient(#202b47, #151d31);
-		/* box-shadow: 4px 4px 4px 0px rgba(66, 68, 90, 0.158); */
-	}
+  .input {
+    display: flex;
+  }
 
-	input {
-		border: 0;
-		outline: 0;
-		background: transparent;
-		color: rgb(245, 86, 86);
-		font-size: 18px;
-	}
+  input {
+    border: 0;
+    outline: 0;
+    background: transparent;
+    color: rgb(245, 86, 86);
+    font-size: 18px;
+    width: 100%;
+  }
 
-	.bomb {
-		/* font-size: 16px; */
-		padding-right: 10px;
-	}
-
-	.text {
-		color: rgb(9, 184, 184);
-	}
-
-	button {
-		background: #017545;
-		/* width: 150px; */
-		border: none;
-		color: white;
-		font-size: 16px;
-		border-radius: 8px;
-		padding: 20px;
-		padding-top: 10px;
-		padding-bottom: 10px;
-		cursor: pointer;
-	}
-
-	button:hover {
-		background: #0175453f;
-	}
-
-	.actions {
-		margin-top: 40px;
-	}
+  .bomb {
+    padding-right: 10px;
+  }
 </style>
