@@ -13,60 +13,74 @@
   let inputElement
   let contentValue = items
   let inputValue = 'items'
+  let isInputFocused = false
 
-  // function validateInput() {
-  //   const words = [
-  //     'items.first()',
-  //     'items.last()',
-  //     'items.findById(0)',
-  //     'items.findById(1)',
-  //     'items.findById(2)',
-  //     'items.findById(3)',
-  //     'types.isNumber()',
-  //   ]
-  //   return words.includes(inputValue)
-  // }
+  const hints = [
+    { text: 'items', action: () => items },
+    { text: 'items.first()', action: () => items.first() },
+    { text: 'items.last()', action: () => items.last() },
+    { text: 'items.findById(2)', action: () => items.findById(2) },
+    { text: 'types.isNumber(2)', action: () => types.isNumber(2) },
+    { text: 'content.isNotEmptyObject({})', action: () => content.isNotEmptyObject({}) }
+  ]
 
-  function changeInput(input) {
-    try {
-      const value = eval(input.target.value)
-      contentValue = value
-    } catch (e) {
-      console.log(e, 'e?')
-    }
+  $: filteredHints = hints.filter(
+    (hint) => hint.text.includes(inputValue) && hint.text !== inputValue
+  )
+
+  function validateInput() {
+    return hints.some((hint) => hint.text === inputValue)
   }
 
-  function handleBlur(refresh = false) {
-    const oldValue = inputValue
-    inputElement.focus()
+  function changeInput() {
+    const validate = validateInput()
+    console.log(validate, 'validate')
+    if (!validate) return
 
-    if (refresh) {
-      inputValue = ''
-
-      setTimeout(() => {
-        inputValue = oldValue
-      }, 10)
-    }
+    const item = hints.find((hint) => hint.text === inputValue)
+    contentValue = item.action()
   }
 
-  onMount(() => {
-    handleBlur(true)
-  })
+  function handleFocus() {
+    isInputFocused = true
+  }
+
+  function handleBlur() {
+    setTimeout(() => {
+      isInputFocused = false
+    }, 200)
+  }
+
+  function handleSuggestClick(item) {
+    inputValue = item.text
+    isInputFocused = false
+    console.log(inputValue, 'input value?')
+    changeInput()
+  }
 </script>
 
-<button class="container" on:click={() => handleBlur()}>
+<button class="container">
   <div class="content">
     <h1>helpers plugin</h1>
     <h2>try and install using <span>npm i helpers-plugin</span></h2>
     <div class="code">
-      <div class="input">
-        <span class="bomb">🔥</span>
-        <input
-          bind:this={inputElement}
-          on:blur={() => handleBlur()}
-          bind:value={inputValue}
-          on:input={(value) => changeInput(value)}
-        />
+      <div class="input-section">
+        <div class="input">
+          <span class="bomb">🔥</span>
+          <input
+            bind:this={inputElement}
+            on:focus={() => handleFocus()}
+            bind:value={inputValue}
+            on:blur={() => handleBlur()}
+          />
+        </div>
+        {#if isInputFocused}
+          <div class="suggestion">
+            {#each filteredHints as item}
+              <div on:click={() => handleSuggestClick(item)}>{item.text}</div>
+            {/each}
+          </div>
+        {/if}
       </div>
       <pre>{JSON.stringify(contentValue, null, 4)}</pre>
     </div>
@@ -121,13 +135,36 @@
     border-radius: 8px;
     font-size: 18px;
     background: linear-gradient(#202b47, #151d31);
-    /* width: 250px; */
     display: block;
     padding: 40px;
   }
 
+  .input-section {
+    position: relative;
+  }
+
   .input {
     display: flex;
+  }
+
+  .suggestion {
+    position: absolute;
+    left: 0;
+    top: 40px;
+    background: #161f33;
+    width: 100%;
+    box-shadow: 2px 2px 5px 0px rgba(11, 16, 68, 0.123);
+
+    animation: fade 1s linear;
+  }
+
+  .suggestion div {
+    padding: 15px;
+    cursor: pointer;
+  }
+
+  .suggestion div:hover {
+    background: #121929;
   }
 
   input {
@@ -141,5 +178,14 @@
 
   .bomb {
     padding-right: 10px;
+  }
+
+  @keyframes fade {
+    0% {
+      opacity: 0;
+    }
+    40% {
+      opacity: 1;
+    }
   }
 </style>
