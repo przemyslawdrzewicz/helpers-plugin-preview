@@ -61,8 +61,12 @@
 
 <button class="container">
   <div class="content">
-    <h1>helpers plugin</h1>
-    <h2>try and install using <span>npm i helpers-plugin</span></h2>
+    <h1>
+      <a href="https://www.npmjs.com/package/helpers-plugin" target="_blank">helpers plugin</a>
+    </h1>
+    <h2>
+      try and install using <span>npm i helpers-plugin</span>
+    </h2>
     <div class="code">
       <div class="input-section">
         <div class="input">
@@ -106,11 +110,13 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    animation: fadeIn 1.5s ease-in-out;
   }
 
   .content {
     max-width: 500px;
     width: 100%;
+    animation: slideUp 1s ease-out;
   }
 
   h1 {
@@ -118,7 +124,21 @@
     font-weight: 300;
     margin-top: 40px;
     margin-bottom: 20px;
-    font-size: 48px;
+    /* font-size: 48px; */
+    font-size: 70px;
+    opacity: 0;
+    animation:
+      fadeInUp 1.5s 0.5s forwards,
+      titleShrink 1.5s ease-in-out 1.5s forwards;
+  }
+
+  h1 a {
+    color: #00dc82;
+    text-decoration: none;
+  }
+
+  h1 a:hover {
+    text-decoration: underline;
   }
 
   h2 {
@@ -126,6 +146,8 @@
     font-weight: 300;
     margin-bottom: 40px;
     font-size: 18px;
+    opacity: 0;
+    animation: fadeInUp 1.5s 3s forwards;
   }
 
   h2 span {
@@ -138,6 +160,8 @@
     background: linear-gradient(#202b47, #151d31);
     display: block;
     padding: 40px;
+    animation: fadeIn 1.5s 4s forwards;
+    opacity: 0;
   }
 
   .input-section {
@@ -146,6 +170,7 @@
 
   .input {
     display: flex;
+    align-items: center;
   }
 
   .suggestion {
@@ -155,17 +180,20 @@
     background: #161f33;
     width: 100%;
     box-shadow: 2px 2px 5px 0px rgba(11, 16, 68, 0.123);
-
-    animation: fade 1s linear;
+    animation: slideIn 0.5s ease-out;
   }
 
   .suggestion div {
     padding: 15px;
     cursor: pointer;
+    opacity: 0;
+    animation: fadeIn 0.5s forwards;
   }
 
   .suggestion div:hover {
     background: #121929;
+    transform: scale(1.05);
+    transition: transform 0.2s ease;
   }
 
   input {
@@ -175,17 +203,76 @@
     color: rgb(245, 86, 86);
     font-size: 18px;
     width: 100%;
+    padding: 10px;
+    border-radius: 5px;
   }
 
   .bomb {
     padding-right: 10px;
   }
 
-  @keyframes fade {
+  /* Keyframe Animations */
+
+  @keyframes fadeIn {
     0% {
       opacity: 0;
     }
-    40% {
+    100% {
+      opacity: 1;
+    }
+  }
+
+  @keyframes fadeInUp {
+    0% {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes slideIn {
+    0% {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes slideUp {
+    0% {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes bounceIn {
+    0% {
+      transform: scale(0.9);
+      opacity: 0;
+    }
+    100% {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+
+  @keyframes titleShrink {
+    0% {
+      font-size: 70px;
+      opacity: 1;
+    }
+    100% {
+      font-size: 48px; /* Final smaller font size */
       opacity: 1;
     }
   }
