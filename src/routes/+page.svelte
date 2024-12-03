@@ -12,7 +12,7 @@
 
   let inputElement
   let contentValue = items
-  let inputValue = 'items'
+  let inputValue = ''
   let isInputFocused = false
 
   const hints = [
@@ -72,6 +72,7 @@
             on:focus={() => handleFocus()}
             bind:value={inputValue}
             on:blur={() => handleBlur()}
+            placeholder="type some methods here ..."
           />
         </div>
         {#if isInputFocused}
