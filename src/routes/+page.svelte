@@ -1,5 +1,4 @@
 <script>
-  import { onMount } from 'svelte'
   import { register, types, content } from 'helpers-plugin'
 
   register({ identifierName: 'id' })
@@ -34,7 +33,6 @@
 
   function changeInput() {
     const validate = validateInput()
-    console.log(validate, 'validate')
     if (!validate) return
 
     const item = hints.find((hint) => hint.text === inputValue)
@@ -54,12 +52,11 @@
   function handleSuggestClick(item) {
     inputValue = item.text
     isInputFocused = false
-    console.log(inputValue, 'input value?')
     changeInput()
   }
 </script>
 
-<button class="container">
+<div class="container">
   <div class="content">
     <h1>
       <a href="https://www.npmjs.com/package/helpers-plugin" target="_blank">helpers plugin</a>
@@ -67,6 +64,9 @@
     <h2>
       try and install using <span>npm i helpers-plugin</span>
     </h2>
+    <a href="/documentation/getting-started/installation">
+      <button>Documentation</button>
+    </a>
     <div class="code">
       <div class="input-section">
         <div class="input">
@@ -90,22 +90,15 @@
       <pre>{JSON.stringify(contentValue, null, 4)}</pre>
     </div>
   </div>
-</button>
+</div>
 
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Rowdies:wght@300;400;700&family=Rubik+Mono+One&family=Saira:ital,wght@0,100..900;1,100..900&display=swap');
-
-  :global(*) {
-    font-family: 'Poppins', sans-serif;
-  }
-
   .container {
     min-height: 100vh;
     background: linear-gradient(#080e20, #03050c);
     color: white !important;
     border: none;
     text-align: left;
-    padding: 20px;
     width: 100%;
     display: flex;
     justify-content: center;
@@ -124,12 +117,10 @@
     font-weight: 300;
     margin-top: 40px;
     margin-bottom: 20px;
-    /* font-size: 48px; */
-    font-size: 70px;
+    font-size: 56px;
+    width: 600px;
     opacity: 0;
-    animation:
-      fadeInUp 1.5s 0.5s forwards,
-      titleShrink 1.5s ease-in-out 1.5s forwards;
+    animation: fadeInUp 1.5s 0.5s forwards;
   }
 
   h1 a {
@@ -147,11 +138,29 @@
     margin-bottom: 40px;
     font-size: 18px;
     opacity: 0;
-    animation: fadeInUp 1.5s 3s forwards;
+    animation: fadeInUp 1.5s 1.5s forwards;
   }
 
   h2 span {
     color: #00dc82;
+  }
+
+  button {
+    border: 0;
+    padding: 20px 30px;
+    /* margin-top: 30px; */
+    background: transparent;
+    color: #ffffff;
+    border-radius: 8px;
+    cursor: pointer;
+    border: 1px solid #00dc82;
+    opacity: 0;
+    animation: fadeIn 1.5s 2.5s forwards;
+  }
+
+  button:hover {
+    border: 1px solid #00dc80c0;
+    color: #ffffffd2;
   }
 
   .code {
@@ -160,8 +169,9 @@
     background: linear-gradient(#202b47, #151d31);
     display: block;
     padding: 40px;
-    animation: fadeIn 1.5s 4s forwards;
+    animation: fadeIn 1.5s 3s forwards;
     opacity: 0;
+    margin-top: 20px;
   }
 
   .input-section {
@@ -200,7 +210,7 @@
     border: 0;
     outline: 0;
     background: transparent;
-    color: rgb(245, 86, 86);
+    color: rgb(224, 105, 69);
     font-size: 18px;
     width: 100%;
     padding: 10px;
