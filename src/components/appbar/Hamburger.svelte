@@ -1,6 +1,7 @@
 <script>
   import Navigation from '@/components/documentation/Navigation.svelte'
   import Tag from '@/components/ui/Tag.svelte'
+  import { base } from '$app/paths'
 
   let dialog = false
 
@@ -16,7 +17,7 @@
 </script>
 
 <button on:click={openDialog}>
-  <img src="/menu.svg" alt="hamburger" />
+  <img src={base + '/menu.svg'} alt="hamburger" />
 </button>
 <dialog open={dialog}>
   <div class="header">
@@ -24,17 +25,17 @@
     <div class="links">
       <a href="https://www.npmjs.com/package/helpers-plugin">
         <button>
-          <img src="/npm.svg" alt="npm" />
+          <img src={base + '/npm.svg'} alt="npm" />
         </button>
       </a>
       <a href="https://github.com/przemyslawdrzewicz/helpers-plugin">
         <button>
-          <img src="/github.svg" alt="github" />
+          <img src={base + '/github.svg'} alt="github" />
         </button>
       </a>
     </div>
     <button on:click={closeDialog}>
-      <img src="/close.svg" alt="close" />
+      <img src={base + '/close.svg'} alt="close" />
     </button>
   </div>
   <Navigation on:update={closeDialog} />

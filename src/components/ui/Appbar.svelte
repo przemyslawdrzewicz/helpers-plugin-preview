@@ -14,12 +14,12 @@
       <div class="links">
         <a href="https://www.npmjs.com/package/helpers-plugin">
           <button>
-            <img src="/npm.svg" alt="npm" />
+            <img src={base + '/npm.svg'} alt="npm" />
           </button>
         </a>
         <a href="https://github.com/przemyslawdrzewicz/helpers-plugin">
           <button>
-            <img src="/github.svg" alt="github" />
+            <img src={base + '/github.svg'} alt="github" />
           </button>
         </a>
       </div>
