@@ -1,5 +1,6 @@
 <script>
   import { register, types, content } from 'helpers-plugin'
+  import { base } from '$app/paths'
 
   register({ identifierName: 'id' })
 
@@ -64,8 +65,8 @@
     <h2>
       try and install using <span>npm i helpers-plugin</span>
     </h2>
-    <a href="/documentation/getting-started/installation">
-      <button>Documentation</button>
+    <a href={base + '/documentation/getting-started/installation'}>
+      <button class="documentation">Documentation</button>
     </a>
     <div class="code">
       <div class="input-section">
@@ -82,7 +83,7 @@
         {#if isInputFocused}
           <div class="suggestion">
             {#each filteredHints as item}
-              <div on:click={() => handleSuggestClick(item)}>{item.text}</div>
+              <button on:click={() => handleSuggestClick(item)}>{item.text}</button>
             {/each}
           </div>
         {/if}
@@ -145,7 +146,7 @@
     color: #00dc82;
   }
 
-  button {
+  .documentation {
     border: 0;
     padding: 20px 30px;
     /* margin-top: 30px; */
@@ -158,7 +159,7 @@
     animation: fadeIn 1.5s 2.5s forwards;
   }
 
-  button:hover {
+  .documentation:hover {
     border: 1px solid #00dc80c0;
     color: #ffffffd2;
   }
@@ -193,14 +194,21 @@
     animation: slideIn 0.5s ease-out;
   }
 
-  .suggestion div {
+  .suggestion button {
     padding: 15px;
     cursor: pointer;
     opacity: 0;
     animation: fadeIn 0.5s forwards;
+    display: block;
+    border: none;
+    width: 100%;
+    text-align: left;
+    background: #121929;
+    color: white;
+    font-size: 16px;
   }
 
-  .suggestion div:hover {
+  .suggestion button:hover {
     background: #121929;
     transform: scale(1.05);
     transition: transform 0.2s ease;

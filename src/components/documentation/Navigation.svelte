@@ -2,6 +2,7 @@
   import { page } from '$app/stores'
   import { createEventDispatcher } from 'svelte'
   import { navigationList } from '@/constants/navigation'
+  import { base } from '$app/paths'
 
   $: routePath = $page.route.id
 
@@ -22,7 +23,7 @@
         <div class="drawer__childlist">
           {#each item.child as childItem}
             {#if !childItem.subChild}
-              <a href={childItem.to}>
+              <a href={base + childItem.to}>
                 <button
                   class={routePath === childItem.to ? 'active' : ''}
                   on:click={navigationItemCLicked}
@@ -34,7 +35,7 @@
               <span>{childItem.title}</span>
               <div class="drawer__subchildlist">
                 {#each childItem.subChild as subChildItem}
-                  <a href={subChildItem.to}>
+                  <a href={base + subChildItem.to}>
                     <button
                       class={routePath === subChildItem.to ? 'active' : ''}
                       on:click={navigationItemCLicked}

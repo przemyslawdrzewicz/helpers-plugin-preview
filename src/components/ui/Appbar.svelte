@@ -1,13 +1,14 @@
 <script>
   import Tag from '@/components/ui/Tag.svelte'
   import Hamburger from '@/components/appbar/Hamburger.svelte'
+  import { base } from '$app/paths'
 </script>
 
 <header>
   <div class="container">
     <div class="logo">helpers plugin</div>
     <div class="right">
-      <a href="/">
+      <a href={base + '/'}>
         <button class="preview">See live</button>
       </a>
       <div class="links">

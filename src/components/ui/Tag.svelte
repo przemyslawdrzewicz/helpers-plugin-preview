@@ -4,7 +4,7 @@
   const typeClass = props.type
 </script>
 
-<code class={`${smallClass} ${typeClass}`}><slot /></code>
+<code class={`${smallClass} ${typeClass}`}>{@render props.children()}</code>
 
 <style>
   code {
