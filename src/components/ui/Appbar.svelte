@@ -24,7 +24,7 @@
         </a>
       </div>
       <div class="version">
-        <Tag small type="primary">1.0.8</Tag>
+        <Tag small type="primary">1.0.18</Tag>
       </div>
       <div class="hamburger">
         <Hamburger />

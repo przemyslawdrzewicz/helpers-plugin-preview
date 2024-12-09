@@ -21,7 +21,7 @@
 </button>
 <dialog open={dialog}>
   <div class="header">
-    <Tag small type="primary">1.0.8</Tag>
+    <Tag small type="primary">1.0.18</Tag>
     <div class="links">
       <a href="https://www.npmjs.com/package/helpers-plugin">
         <button>

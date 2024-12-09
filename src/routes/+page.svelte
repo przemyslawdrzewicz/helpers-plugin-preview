@@ -96,7 +96,6 @@
 <style>
   .container {
     min-height: 100vh;
-    background: linear-gradient(#080e20, #03050c);
     color: white !important;
     border: none;
     text-align: left;
@@ -119,7 +118,6 @@
     margin-top: 40px;
     margin-bottom: 20px;
     font-size: 56px;
-    width: 600px;
     opacity: 0;
     animation: fadeInUp 1.5s 0.5s forwards;
   }
@@ -131,6 +129,18 @@
 
   h1 a:hover {
     text-decoration: underline;
+  }
+
+  @media (max-width: 500px) {
+    .content {
+      margin-left: 20px;
+      margin-right: 20px;
+      max-width: 100%;
+    }
+
+    h1 {
+      font-size: 50px;
+    }
   }
 
   h2 {
@@ -149,7 +159,6 @@
   .documentation {
     border: 0;
     padding: 20px 30px;
-    /* margin-top: 30px; */
     background: transparent;
     color: #ffffff;
     border-radius: 8px;
