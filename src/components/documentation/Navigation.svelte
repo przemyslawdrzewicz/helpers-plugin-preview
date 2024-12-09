@@ -84,6 +84,7 @@
     display: block;
     font-weight: 300;
     font-size: 14px;
+    color: white;
   }
 
   .drawer__childlist button {
